@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "ibf2021.day4.App",
+            "projectName": "fortunecookie"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "ibf2021.day4.Server",
+            "projectName": "fortunecookie"
+        },
+        {
+            "type": "java",
+            "name": "Launch fortunecookie",
+            "request": "launch",
+            "mainClass": "ibf2021.day4.fortunecookie",
+            "projectName": "fortunecookie",
+            "preLaunchTask": "delayClientLaunch"
+        },
+        {
+            "type": "node-terminal",
+            "name": "JavaScript Debug Terminal",
+            "request": "launch",
+            "cwd": "${workspaceFolder}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch Server and Client",
+            "configurations": [
+                "Launch Server",
+                "Launch fortunecookie"
+            ]
+        }
+    ]
+}

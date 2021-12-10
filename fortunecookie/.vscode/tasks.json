@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "delayClientLaunch",
+            "type": "shell",
+            "windows": {
+                "command": "timeout /t 5 /nobreak"
+            },
+            "group": "none",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "new"
+            }
+        }
+    ]
+}

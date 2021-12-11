@@ -19,14 +19,16 @@
             "name": "Launch Server",
             "request": "launch",
             "mainClass": "ibf2021.day4.Server",
-            "projectName": "fortunecookie"
+            "projectName": "fortunecookie",
+            "args": "ibf2021.day4.Server 12345 cookie-text.txt"
         },
         {
             "type": "java",
-            "name": "Launch fortunecookie",
+            "name": "Launch Client",
             "request": "launch",
-            "mainClass": "ibf2021.day4.fortunecookie",
+            "mainClass": "ibf2021.day4.Client",
             "projectName": "fortunecookie",
+            "args": "ibf2021.day4.Client localhost:12345",
             "preLaunchTask": "delayClientLaunch"
         },
         {
@@ -41,7 +43,7 @@
             "name": "Launch Server and Client",
             "configurations": [
                 "Launch Server",
-                "Launch fortunecookie"
+                "Launch Client"
             ]
         }
     ]

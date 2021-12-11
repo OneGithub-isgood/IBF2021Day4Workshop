@@ -55,7 +55,7 @@
           <configuration>
 	          <archive>
 		          <manifest>
-			          <mainClass>ibf2021.day4.fortunecookie</mainClass>
+			          <mainClass>ibf2021.day4.Server</mainClass>
 		          </manifest>
 	          </archive>
           </configuration>

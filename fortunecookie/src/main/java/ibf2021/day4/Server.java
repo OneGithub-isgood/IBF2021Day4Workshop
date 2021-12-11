@@ -13,19 +13,28 @@ import java.net.UnknownHostException;
 public class Server {
     public static void main(String[] args)
             throws UnknownHostException, IOException {
-        System.out.println("Opening new connection for port 12345...");
-        ServerSocket serverSocket = new ServerSocket(12345);
+        Cookie newCookie = new Cookie();
+        int socketPortNum = 0;
+
+        for (String arg : args) {
+            if (arg.contains(".txt")) {
+                newCookie.setCookiePath(arg);
+            } else if (arg.matches("\\d+")) {
+                socketPortNum = Integer.parseInt(arg);
+            }
+        }
+
+        System.out.println("Opening new connection for port " + socketPortNum + "...");
+        ServerSocket serverSocket = new ServerSocket(socketPortNum);
         Socket socket = serverSocket.accept();
         System.out.println("Client connected");
-        
-        Cookie newCookie = new Cookie();
+
         newCookie.prepareCookieBox();
-        
-        //Enter CMD command: java "C:\Git_Folder_2\IBF2021Day4Workshop\IBF2021Day4Workshop\fortunecookie\src\main\java\ibf2021\day4\fortunecookie.java"
         
         try (InputStream iS = socket.getInputStream()) {
             while (true) {
                 DataInputStream diS = new DataInputStream(new BufferedInputStream(iS));
+
                 OutputStream oS = socket.getOutputStream();
                 PrintWriter pW = new PrintWriter(oS, true);
                 while (true) {
@@ -35,8 +44,6 @@ public class Server {
                         String cookieMessage = newCookie.getCookie();
                         String serverCommand = "cookie-text " + cookieMessage;
                         pW.println(serverCommand);
-                        //doS.writeUTF(serverCommand);
-                        //doS.flush();
                     } else if (readData.equals("close")) {
                         break;
                     } else {
@@ -46,6 +53,7 @@ public class Server {
                 socket.close();
                 System.out.println("Client disconnected, closing port 12345...");
                 serverSocket.close();
+                break;
             }
         }
     }

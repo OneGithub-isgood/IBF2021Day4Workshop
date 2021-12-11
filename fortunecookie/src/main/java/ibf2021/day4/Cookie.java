@@ -15,13 +15,13 @@ public class Cookie {
     List<String> cookieBox = new ArrayList<>();
 
     public void setCookiePath(String path) {
-        this.cookiePath = path + "/";
+        this.cookiePath = path;
     }
 
     public void prepareCookieBox() throws IOException {
-        String cookieFileName = cookiePath + "cookie-text.txt";
+        //String cookieFileName = cookiePath;
         String cookieMessage;
-        File dbFile = new File(cookieFileName);
+        File dbFile = new File(cookiePath);
         try (Reader newReader = new FileReader(dbFile)) {
             BufferedReader newBR = new BufferedReader(newReader);
             while (null != (cookieMessage = newBR.readLine())) {

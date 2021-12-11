@@ -9,23 +9,26 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class fortunecookie {
+public class Client {
     public static void main(String[] args)
             throws UnknownHostException, IOException {
-        String filePath = "";
-        if (null != args && args.length > 0) {
-            String[] argsList = filePath.split(" ");
-            for (int argsPosition = 0; argsPosition < argsList.length; argsPosition++) {
-                if (argsList[argsPosition].contains("text.txt")) {
-                    filePath = argsList[argsPosition];
+        int socketPortNum = 0;
+        String hostAddress = "";
+        
+        for (String arg : args) {
+            if (arg.contains(":")) {
+                String[] hostPortConfig = arg.split(":");
+                for (String configNet : hostPortConfig) {
+                    if (configNet.matches("\\d+")) {
+                        socketPortNum = Integer.parseInt(configNet);
+                    } else {
+                        hostAddress = configNet;
+                    }
                 }
             }
         }
 
-        Cookie setCookie = new Cookie();
-        setCookie.setCookiePath(filePath);
-
-        Socket clientSocket = new Socket("localhost", 12345);
+        Socket clientSocket = new Socket(hostAddress, socketPortNum);
 
         try (OutputStream oS = clientSocket.getOutputStream()) {
             DataOutputStream doS = new DataOutputStream(new BufferedOutputStream(oS));
@@ -38,8 +41,10 @@ public class fortunecookie {
                 doS.writeUTF(clientMessage);
                 doS.flush();
                 serverMessage = bRClient.readLine();
-                String removePrefix = serverMessage.replace("cookie-text ","");
-                System.out.println(removePrefix);
+                if (null != serverMessage) {
+                    String removePrefix = serverMessage.replace("cookie-text ","");
+                    System.out.println(removePrefix);
+                }
                 if (clientMessage.equals("close")) {
                     clientMessage = bRInput.readLine();
                     doS.writeUTF(clientMessage);
